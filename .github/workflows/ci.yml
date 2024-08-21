@@ -1,0 +1,9 @@
+on: [push]
+jobs:
+    build_and_static_analysis:
+        runs-on: Ubuntu-latest
+        container:
+            image: kayongopique/msp430-gcc-9.3.1.11:latest
+        steps:
+          - name: Checkout the repository
+            uses: actions/checkout@v3

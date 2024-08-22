@@ -4,6 +4,9 @@ jobs:
         runs-on: Ubuntu-latest
         container:
             image: kayongopique/msp430-gcc-9.3.1.11:latest
+        env:
+          TOOLS_PATH: /home/ubuntu/dev/tools
         steps:
           - name: Checkout the repository
             uses: actions/checkout@v3
+          - run: make

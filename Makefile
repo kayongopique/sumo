@@ -17,7 +17,11 @@ SRC_DIR = $(BUILD_DIR)/build
 # Toolchain
 CC = $(MSPGCC_BIN_DIR)/msp430-elf-gcc
 
-SOURCES = src/main.c src/app/led.c 
+SOURCES_WITH_HEADERS = src/drivers/io.c \
+					src/app/led.c \
+
+SOURCES = src/main.c \
+		$(SOURCES_WITH_HEADERS)
 
 OBJECT_NAMES = $(SOURCES:.c=.o)
 OBJECTS = $(patsubst %,$(OBJ_DIR)/%,$(OBJECT_NAMES))

@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "msp430.h": "c"
-    }
+        "msp430.h": "c",
+        "io.h": "c"
+    },
+    "C_Cpp.default.compilerPath": "C:\\mingw64\\bin\\gcc.exe"
 }

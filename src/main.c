@@ -1,6 +1,12 @@
 #include<msp430.h>
 #include "app/led.h"
 #include "drivers/io.h"
+#include "drivers/io.h"
+#include "drivers/mcu_init.h"
+
+static void test_setup(void) {
+    mcu_init();
+} 
 
 static void test_blink_led(void) {
     const struct  io_config led_config = 
@@ -18,7 +24,7 @@ static void test_blink_led(void) {
 int main(void) {
     test_blink_led();
     volatile unsigned int i;
-    WDTCTL = WDTPW + WDTHOLD; // stop watchdog timer
+   test_setup();
     io_out_e out = IO_OUT_LOW;
 
     while (1)

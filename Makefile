@@ -19,6 +19,7 @@ CC = $(MSPGCC_BIN_DIR)/msp430-elf-gcc
 
 SOURCES_WITH_HEADERS = src/drivers/io.c \
 					src/app/led.c \
+					src/drivers/mcu_init.c \
 
 SOURCES = src/main.c \
 		$(SOURCES_WITH_HEADERS)

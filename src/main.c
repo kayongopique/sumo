@@ -3,34 +3,27 @@
 #include "drivers/io.h"
 #include "drivers/io.h"
 #include "drivers/mcu_init.h"
+#include "drivers/led.h"
+#include "common/assert_handler.h"
 
 static void test_setup(void) {
     mcu_init();
 } 
 
 static void test_blink_led(void) {
-    const struct  io_config led_config = 
-    {
-        /* data */
-        .select = IO_SELECT_GPIO,
-        .dir = IO_DIR_OUTPUT,
-        .resistor = IO_RESISTOR_DISABLED,
-        .out = IO_OUT_LOW
-
-    };
-    io_configure(IO_TEST_LED, &led_config);
+    led_init();
 }
 
 int main(void) {
     test_blink_led();
     volatile unsigned int i;
    test_setup();
-    io_out_e out = IO_OUT_LOW;
+    led_state_e led_state = LED_STATE_OFF;
 
     while (1)
     {
-        out = (out == IO_OUT_LOW)? IO_OUT_HIGH: IO_OUT_LOW;
-        io_set_out(IO_TEST_LED, out);
+        led_state = (led_state == LED_STATE_ON)? LED_STATE_OFF: LED_STATE_ON;
+        led_set(LED_TEST, led_state);
         for ( i = 10000; i >0; i--);   // delay
         
     }

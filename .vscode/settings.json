@@ -1,7 +1,11 @@
 {
     "files.associations": {
         "msp430.h": "c",
-        "io.h": "c"
+        "io.h": "c",
+        "defines.h": "c",
+        "mcu_init.h": "c",
+        "assert_handler.h": "c",
+        "led.h": "c"
     },
     "C_Cpp.default.compilerPath": "C:\\mingw64\\bin\\gcc.exe"
 }

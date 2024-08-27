@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # This script is used by CI to build all test functions
 
 SCRIPT_DIR=$(dirname "$0")

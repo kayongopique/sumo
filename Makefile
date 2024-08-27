@@ -109,4 +109,5 @@ cppcheck:
 
 tests:
 	@# Build all tests
+	@chmod +x tools/build_tests.sh
 	@tools/build_tests.sh

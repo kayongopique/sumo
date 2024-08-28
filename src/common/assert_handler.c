@@ -32,9 +32,9 @@ static void assert_blink_led(void)
 /* Minimize code dependency in this function to reduce the risk of accidently calling
  * a function with an assert in it, which would cause the assert_handler to be called
  * recursively until stack overflow. */
-SUPPRESS_UNUSED
-void assert_handler()
+void assert_handler(uint16_t program_counter)
 {
     BREAKPOINT
     assert_blink_led();
+    UNUSED(program_counter);
 }

@@ -1,7 +1,9 @@
 #ifndef DEFINES_H
 #define DEFINES_H
 
+#define UNUSED(x) (void)(x)
 #define SUPPRESS_UNUSED __attribute__((unused))
+#define INTERRUPT_FUNCTION(vector) void __attribute__((interrupt(vector)))
 
 
 #define CYCLES_1MHZ (1000000u)

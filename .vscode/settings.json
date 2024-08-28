@@ -5,7 +5,8 @@
         "defines.h": "c",
         "mcu_init.h": "c",
         "assert_handler.h": "c",
-        "led.h": "c"
+        "led.h": "c",
+        "assert.h": "c"
     },
-    "C_Cpp.default.compilerPath": "C:\\mingw64\\bin\\gcc.exe"
+    "C_Cpp.default.compilerPath": "C:\\mingw64\\bin\\gcc.exe",
 }

@@ -13,6 +13,10 @@ TI_CCS_DIR = $(TOOLS_DIR)/ccs1280/ccs
 DEBUG_BIN_DIR = $(TI_CCS_DIR)/ccs_base/DebugServer/bin
 DEBUG_DRIVERS_DIR = $(TI_CCS_DIR)/ccs_base/DebugServer/drivers
 
+#for memory management debugging
+SIZE = $(MSPGCC_BIN_DIR)/msp430-elf-size
+READELF = $(MSPGCC_BIN_DIR)/msp430-elf-readelf
+
 BUILD_DIR = build
 OBJ_DIR =$(BUILD_DIR)/$(TARGET_NAME)
 SRC_DIR = $(BUILD_DIR)/build
@@ -63,7 +67,7 @@ endif
 #Flags
 MCU =msp430g2553
 WFLAGS = -Wall -Wextra -Werror -Wshadow
-CFLAGS = -mmcu=$(MCU) $(WFLAGS) $(addprefix -I,"$(INCLUD_DIRS)") $(DEFINES) -Og -g
+CFLAGS = -mmcu=$(MCU) $(WFLAGS) -fshort-enums $(addprefix -I,"$(INCLUD_DIRS)") $(DEFINES) -Og -g
 LFLAGS = -mmcu=$(MCU) $(addprefix -L,"$(LIB_DIRS)")
 
 
@@ -95,7 +99,7 @@ $(OBJ_DIR)/%.o: %.c
 # 	$(CC) $(CFLAGS) -c main.c -o main.o
 
 # Phonies
-.PHONY: all clean cppcheck
+.PHONY: all clean cppcheck tests size
 all: $(TARGET)
 
 clean:
@@ -111,3 +115,10 @@ tests:
 	@# Build all tests
 	@chmod +x tools/build_tests.sh
 	@tools/build_tests.sh
+
+size: $(TARGET)
+	@$(SIZE) $(TARGET)
+
+symbols: $(TARGET)
+	# List symbols table sorted by size
+	@$(READELF) -s $(TARGET) | sort -n -k3

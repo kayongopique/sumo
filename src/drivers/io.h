@@ -76,6 +76,12 @@ typedef enum
     IO_IN_HIGH,
 } io_in_e;
 
+typedef enum
+{
+    IO_TRIGGER_RISING,
+    IO_TRIGGER_FALLING
+} io_trigger_e;
+
 // struct to expose type definitions 
 struct io_config
 {
@@ -86,6 +92,7 @@ struct io_config
 };
 
 // func prototypes
+void io_init(void);
 void io_configure(io_e io, const struct io_config *config);
 void io_get_current_config(io_e io, struct io_config *current_config);
 bool io_config_compare(const struct io_config *cfg1, const struct io_config *cfg2);
@@ -94,6 +101,13 @@ void io_set_direction(io_e io, io_dir_e direction);
 void io_set_resistor(io_e io, io_resistor_e resistor);
 void io_set_out(io_e io, io_out_e out);
 io_in_e io_get_input(io_e io);
+
+// interrupt prototype funcs
+typedef void (*isr_function)(void);
+void io_configure_interrupt(io_e io, io_trigger_e trigger, isr_function isr);
+void io_deconfigure_interrupt(io_e io);
+void io_enable_interrupt(io_e io);
+void io_disable_interrupt(io_e io);
 
 
 #endif

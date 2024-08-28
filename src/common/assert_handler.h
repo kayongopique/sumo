@@ -9,5 +9,5 @@
         }                                                                                          \
     } while (0)
 
-void assert_handler();
+void assert_handler(uint16_t program_counter);
 #endif

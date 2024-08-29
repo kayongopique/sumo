@@ -12,6 +12,7 @@ LIB_DIRS = $(MSPGCC_INCLUDE_DIR)
 TI_CCS_DIR = $(TOOLS_DIR)/ccs1280/ccs
 DEBUG_BIN_DIR = $(TI_CCS_DIR)/ccs_base/DebugServer/bin
 DEBUG_DRIVERS_DIR = $(TI_CCS_DIR)/ccs_base/DebugServer/drivers
+ADDR2LINE = $(MSPGCC_BIN_DIR)/msp430-elf-addr2line
 
 #for memory management debugging
 SIZE = $(MSPGCC_BIN_DIR)/msp430-elf-size
@@ -43,7 +44,9 @@ SOURCES_WITH_HEADERS = src/drivers/io.c \
 					src/drivers/mcu_init.c \
 					src/common/assert_handler.c \
 					src/common/ring_buffer.c \
-					src/drivers/uart.c
+					src/drivers/uart.c \
+					external/printf.c \
+					src/common/trace.c
 
 SOURCES = $(MAIN_FILE) \
 		$(SOURCES_WITH_HEADERS)
@@ -56,6 +59,7 @@ OBJECTS = $(patsubst %,$(OBJ_DIR)/%,$(OBJECT_NAMES))
 TEST_DEFINE = $(addprefix -DTEST=,$(TEST))
 DEFINES = \
 	$(TEST_DEFINE) \
+	-DPRINTF_INCLUDE_CONFIG_H \
 
 #choice on which environment we are running compling for.
 ifndef TEST
@@ -65,6 +69,19 @@ MAIN_FILE = src/test/test.c
 # Touch test.c to force rebuild every time in case TEST define changed
 $(shell touch src/test/test.c)
 endif
+
+# cppcheck flags
+IGNORE_FILES_FORMAT_CPPCHECK = \
+	external/printf/printf.c
+SOURCES_FORMAT_CPPCHECK = $(filter-out $(IGNORE_FILES_FORMAT_CPPCHECK),$(SOURCES))
+CPPCHECK_FLAGS = \
+	--quiet --enable=all --error-exitcode=1 \
+	--inline-suppr \
+	--suppress=missingIncludeSystem \
+	--suppress=unmatchedSuppression \
+	--suppress=unusedFunction \
+	--force $(addprefix -I,"$(INCLUD_DIRS)") \
+	# --force -I"$(INCLUD_DIRS)" 
 
 #Flags
 MCU =msp430g2553
@@ -101,17 +118,14 @@ $(OBJ_DIR)/%.o: %.c
 # 	$(CC) $(CFLAGS) -c main.c -o main.o
 
 # Phonies
-.PHONY: all clean cppcheck tests size
+.PHONY: all clean cppcheck tests size symbols 
 all: $(TARGET)
 
 clean:
 	rm -r build
 
 cppcheck:
-	@$(CPPCHECK) --quiet --enable=all --error-exitcode=1 \
-	--inline-suppr \
-	--force -I"$(INCLUD_DIRS)" \
-	$(SOURCES)
+	@$(CPPCHECK) $(CPPCHECK_FLAGS) $(SOURCES_FORMAT_CPPCHECK)
 
 tests:
 	@# Build all tests
@@ -124,3 +138,6 @@ size: $(TARGET)
 symbols: $(TARGET)
 	# List symbols table sorted by size
 	@$(READELF) -s $(TARGET) | sort -n -k3
+
+addr2line: $(TARGET)
+	@$(ADDR2LINE) -e $(TARGET) $(ADDR)

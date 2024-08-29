@@ -4,6 +4,7 @@
 #include "../common/assert_handler.h"
 #include "../common/defines.h"
 #include "../drivers/uart.h"
+#include "../common/trace.h"
 #include <msp430.h>
 
 SUPPRESS_UNUSED
@@ -149,6 +150,17 @@ static void test_uart(void)
         _putchar('U');
         _putchar('L');
         _putchar('\n');
+        BUSY_WAIT_ms(100);
+    }
+}
+
+SUPPRESS_UNUSED
+static void test_trace(void)
+{
+    test_setup();
+    trace_init();
+    while (1) {
+        TRACE("Artful bytes %d", 2023);
         BUSY_WAIT_ms(100);
     }
 }

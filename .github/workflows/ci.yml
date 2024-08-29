@@ -9,5 +9,7 @@ jobs:
         steps:
           - name: Checkout the repository
             uses: actions/checkout@v3
+            with:
+              submodules: "true"
           - run: make
           - run: make tests

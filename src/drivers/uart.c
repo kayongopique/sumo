@@ -136,5 +136,31 @@ void _putchar(char c)
     uart_tx_enable_interrupt();
 }
 
+// diasble any interrupt incase of an assert call
+void uart_init_assert(void)
+{
+    uart_tx_disable_interrupt();
+    uart_configure();
+}
+
+// for assert we used polling to transmit characters
+static void uart_putchar_polling(char c)
+{
+    if (c == '\n') {
+        uart_putchar_polling('\r');
+    }
+    UCA0TXBUF = c;
+    while (!(IFG2 & UCA0TXIFG)) { }
+}
+
+void uart_trace_assert(const char *string)
+{
+    int i = 0;
+    while (string[i] != '\0') {
+        uart_putchar_polling(string[i]);
+        i++;
+    }
+}
+
 
 

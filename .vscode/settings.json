@@ -8,7 +8,9 @@
         "led.h": "c",
         "assert.h": "c",
         "string.h": "c",
-        "cstdint": "c"
+        "cstdint": "c",
+        "printf_config.h": "c",
+        "printf.h": "c"
     },
     "C_Cpp.default.compilerPath": "C:\\mingw64\\bin\\gcc.exe",
 }

@@ -21,7 +21,7 @@
 
 static void assert_blink_led(void)
 {
-    GPIO_OUTPUT_LOW(2, 6); // Test LED (Nsumo)
+    GPIO_OUTPUT_LOW(2, 6); // Test LED (sumo)
     while (1) {
         // Blink LED on both targets in case the wrong target was flashed
         P2OUT ^= BIT6;

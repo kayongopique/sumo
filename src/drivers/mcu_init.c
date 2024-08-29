@@ -3,6 +3,7 @@
 #include "io.h"
 #include "../common/defines.h"
 #include "../common/assert_handler.h"
+#include "uart.h"
 
 // 16 MHz / 32768 = ~2000 Hz
 #define WDT_MDLY_0_5_16MHZ (WDTPW + WDTTMSEL + WDTCNTCL + WDTIS0)

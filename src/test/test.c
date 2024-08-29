@@ -3,6 +3,7 @@
 #include "../drivers/led.h"
 #include "../common/assert_handler.h"
 #include "../common/defines.h"
+#include "../drivers/uart.h"
 #include <msp430.h>
 
 SUPPRESS_UNUSED
@@ -133,6 +134,23 @@ static void test_io_interrupt(void)
     io_enable_interrupt(IO_11);
     io_enable_interrupt(IO_20);
     while(1);
+}
+
+SUPPRESS_UNUSED
+static void test_uart(void)
+{
+    test_setup();
+    uart_init();
+    while (1) {
+        _putchar('A');
+        _putchar('R');
+        _putchar('T');
+        _putchar('F');
+        _putchar('U');
+        _putchar('L');
+        _putchar('\n');
+        BUSY_WAIT_ms(100);
+    }
 }
 
 int main()

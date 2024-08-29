@@ -8,6 +8,14 @@
             assert_handler(0);                                                                     \
         }                                                                                          \
     } while (0)
+    
+// TODO: Decide what this should do
+#define ASSERT_INTERRUPT(expression)                                                               \
+    do {                                                                                           \
+        if (!(expression)) {                                                                       \
+            while (1) { }                                                                          \
+        }                                                                                          \
+    } while (0)
 
 void assert_handler(uint16_t program_counter);
 #endif

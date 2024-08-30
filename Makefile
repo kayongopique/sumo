@@ -46,7 +46,10 @@ SOURCES_WITH_HEADERS = src/drivers/io.c \
 					src/common/ring_buffer.c \
 					src/drivers/uart.c \
 					external/printf.c \
-					src/common/trace.c
+					src/common/trace.c \
+					src/drivers/ir_remote.c \
+					src/common/enum_to_string.c \
+
 
 SOURCES = $(MAIN_FILE) \
 		$(SOURCES_WITH_HEADERS)

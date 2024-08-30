@@ -5,6 +5,8 @@
 #include "../common/defines.h"
 #include "../drivers/uart.h"
 #include "../common/trace.h"
+#include "../common/enum_to_string.h"
+#include "../drivers/ir_remote.h"
 #include <msp430.h>
 
 SUPPRESS_UNUSED
@@ -160,8 +162,21 @@ static void test_trace(void)
     test_setup();
     trace_init();
     while (1) {
-        TRACE("Artful bytes %d", 2023);
+        TRACE("dype bytes %d", 2023);
         BUSY_WAIT_ms(100);
+    }
+}
+
+
+SUPPRESS_UNUSED
+static void test_ir_remote(void)
+{
+    test_setup();
+    trace_init();
+    ir_remote_init();
+    while (1) {
+        TRACE("Command %s", ir_remote_cmd_to_string(ir_remote_get_cmd()));
+        BUSY_WAIT_ms(250);
     }
 }
 

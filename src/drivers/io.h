@@ -109,5 +109,7 @@ void io_deconfigure_interrupt(io_e io);
 void io_enable_interrupt(io_e io);
 void io_disable_interrupt(io_e io);
 
+const io_e *io_adc_pins(uint8_t *cnt);
+uint8_t io_to_adc_idx(io_e io);
 
 #endif

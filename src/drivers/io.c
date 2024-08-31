@@ -12,8 +12,6 @@
 #define IO_PIN_CNT_PER_PORT (8u)
 // Port 3 is not interrupt capable
 #define IO_INTERRUPT_PORT_CNT (2u)
-#define ARRAY_SIZE(array) (sizeof(array)/sizeof(array[0]))
-
 
 /* Be a little smart here about how to extract the port and pin bit
  * from the enum io_generic_e (and io_e). With compiler flag "-fshort-enums",

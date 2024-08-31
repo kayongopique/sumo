@@ -6,6 +6,7 @@
 #include <msp430.h>
 #include <stdint.h>
 #include "io.h"
+#include <stdbool.h>
 
 #ifndef DISABLE_IR_REMOTE
 

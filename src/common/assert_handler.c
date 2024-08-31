@@ -45,11 +45,24 @@ static void assert_trace(uint16_t program_counter)
     uart_trace_assert(assert_string);
 }
 
+// Stop the motors when something unexpected happens (assert) to prevent damage
+static void assert_stop_motors(void)
+{
+
+    GPIO_OUTPUT_LOW(2, 4); // Left CC2 (sumo)
+    GPIO_OUTPUT_LOW(2, 5); // Left CC1 (sumo)
+    GPIO_OUTPUT_LOW(2, 7); // Right CC2 (sumo)
+    GPIO_OUTPUT_LOW(3, 7); // Right CC1 (sumo)
+    GPIO_OUTPUT_LOW(3, 5); // Left PWM (sumo)
+    GPIO_OUTPUT_LOW(3, 6); // Right PWM (sumo)
+}
+
 /* Minimize code dependency in this function to reduce the risk of accidently calling
  * a function with an assert in it, which would cause the assert_handler to be called
  * recursively until stack overflow. */
 void assert_handler(uint16_t program_counter)
 {
+    assert_stop_motors();
     BREAKPOINT
     assert_blink_led();
     assert_trace(program_counter);

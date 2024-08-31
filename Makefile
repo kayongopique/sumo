@@ -51,6 +51,7 @@ SOURCES_WITH_HEADERS = src/drivers/io.c \
 					src/common/enum_to_string.c \
 					src/drivers/pwm.c \
 					src/drivers/tb6612fng.c \
+					src/app/drive.c \
 
 
 SOURCES = $(MAIN_FILE) \

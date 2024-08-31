@@ -44,4 +44,33 @@ const char *ir_remote_cmd_to_string(ir_cmd_e cmd)
     return "";
 }
 
+const char *line_to_string(line_e line)
+{
+    switch (line) {
+    case LINE_NONE:
+        return "NONE";
+    case LINE_FRONT:
+        return "FRONT";
+    case LINE_BACK:
+        return "BACK";
+    case LINE_FRONT_LEFT:
+        return "FRONT_LEFT";
+    case LINE_BACK_LEFT:
+        return "BACK_LEFT";
+    case LINE_FRONT_RIGHT:
+        return "FRONT_RIGHT";
+    case LINE_BACK_RIGHT:
+        return "BACK_RIGHT";
+    case LINE_LEFT:
+        return "LEFT";
+    case LINE_RIGHT:
+        return "RIGHT";
+    case LINE_DIAGONAL_LEFT:
+        return "DIAGONAL_LEFT";
+    case LINE_DIAGONAL_RIGHT:
+        return "DIAGONAL_RIGHT";
+    }
+    return "";
+}
+
 #endif

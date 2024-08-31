@@ -13,6 +13,7 @@
 #include "../app/drive.h"
 #include "../drivers/adc.h"
 #include "../drivers/qre1113.h"
+#include "../app/line.h"
 
 SUPPRESS_UNUSED
 static void test_setup(void)
@@ -326,6 +327,18 @@ static void test_qre1113(void)
         qre1113_get_voltages(&voltages);
         TRACE("Voltages fl %u fr %u bl %u br %u", voltages.front_left, voltages.front_right,
                                                   voltages.back_left, voltages.back_right);
+        BUSY_WAIT_ms(1000);
+    }
+}
+
+SUPPRESS_UNUSED
+static void test_line(void)
+{
+    test_setup();
+    trace_init();
+    line_init();
+    while (1) {
+        TRACE("Line %u", line_to_string(line_get()));
         BUSY_WAIT_ms(1000);
     }
 }

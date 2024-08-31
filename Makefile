@@ -54,6 +54,8 @@ SOURCES_WITH_HEADERS = src/drivers/io.c \
 					src/app/drive.c \
 					src/drivers/adc.c \
 					src/drivers/qre1113.c \
+					src/app/line.c \
+					
 
 
 SOURCES = $(MAIN_FILE) \

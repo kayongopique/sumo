@@ -135,6 +135,13 @@ static const struct io_config io_initial_configs[IO_PORT_CNT * IO_PIN_CNT_PER_PO
                                     IO_OUT_LOW },
 };
 
+static const io_e io_adc_pins_arr[] = { IO_LINE_DETECT_FRONT_LEFT,
+                                        IO_LINE_DETECT_BACK_LEFT, 
+                                        IO_LINE_DETECT_FRONT_RIGHT,
+                                        IO_LINE_DETECT_BACK_RIGHT
+};
+
+
 // initialize all pins
 void io_init(void)
 {
@@ -323,4 +330,17 @@ INTERRUPT_FUNCTION(PORT2_VECTOR) isr_port_2(void)
     for (io_generic_e io = IO_20; io <= IO_27; io++) {
         io_isr(io);
     }
+}
+
+const io_e *io_adc_pins(uint8_t *cnt)
+{
+    *cnt = ARRAY_SIZE(io_adc_pins_arr);
+    return io_adc_pins_arr;
+}
+
+uint8_t io_to_adc_idx(io_e io)
+{
+    // Only pins on port 1 supports ADC
+    ASSERT(io_port(io) == IO_PORT1);
+    return io_pin_idx(io);
 }

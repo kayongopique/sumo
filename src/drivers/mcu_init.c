@@ -28,7 +28,8 @@ static inline void init_clocks()
      * SMCLK: Subsystem master clock drives some peripherals */
     // BCSCTL2 default
 
-    // Select the internal Very Low Frequency oscillator (VLO) as ACLK source
+    // Select the internal Very Low Frequency oscillator (VLO) as ACLK source 
+    // (use for adc line sensor inputs)
     BCSCTL3 = LFXT1S_2;
 }
 static inline void watchdog_setup(void)

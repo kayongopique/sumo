@@ -11,6 +11,9 @@
 #include "../drivers/tb6612fng.h"
 #include <msp430.h>
 #include "../app/drive.h"
+#include "../drivers/adc.h"
+#include "../drivers/qre1113.h"
+#include "../app/line.h"
 
 SUPPRESS_UNUSED
 static void test_setup(void)
@@ -295,6 +298,49 @@ static void test_assert_motors(void)
     BUSY_WAIT_ms(3000);
     ASSERT(0);
     while(0) { }
+}
+
+SUPPRESS_UNUSED
+static void test_adc(void)
+{
+    test_setup();
+    trace_init();
+    adc_init();
+    while (1) {
+        adc_channel_values_t values;
+        adc_get_channel_values(values);
+        for (uint8_t i = 0; i < ADC_CHANNEL_COUNT; i++) {
+            TRACE("ADC ch %u: %u", i, values[i]);
+        }
+        BUSY_WAIT_ms(1000);
+    }
+}
+
+SUPPRESS_UNUSED
+static void test_qre1113(void)
+{
+    test_setup();
+    trace_init();
+    qre1113_init();
+    struct qre1113_voltages voltages = { 0, 0, 0, 0 };
+    while (1) {
+        qre1113_get_voltages(&voltages);
+        TRACE("Voltages fl %u fr %u bl %u br %u", voltages.front_left, voltages.front_right,
+                                                  voltages.back_left, voltages.back_right);
+        BUSY_WAIT_ms(1000);
+    }
+}
+
+SUPPRESS_UNUSED
+static void test_line(void)
+{
+    test_setup();
+    trace_init();
+    line_init();
+    while (1) {
+        TRACE("Line %u", line_to_string(line_get()));
+        BUSY_WAIT_ms(1000);
+    }
 }
 
 int main()

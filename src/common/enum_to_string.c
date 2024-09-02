@@ -73,4 +73,46 @@ const char *line_to_string(line_e line)
     return "";
 }
 
+const char *enemy_pos_to_string(enemy_pos_e pos)
+{
+    switch (pos) {
+    case ENEMY_POS_NONE:
+        return "NONE";
+    case ENEMY_POS_FRONT_LEFT:
+        return "FRONT_LEFT";
+    case ENEMY_POS_FRONT:
+        return "FRONT";
+    case ENEMY_POS_FRONT_RIGHT:
+        return "FRONT_RIGHT";
+    case ENEMY_POS_LEFT:
+        return "LEFT";
+    case ENEMY_POS_RIGHT:
+        return "RIGHT";
+    case ENEMY_POS_FRONT_AND_FRONT_LEFT:
+        return "FRONT_AND_FRONT_LEFT";
+    case ENEMY_POS_FRONT_AND_FRONT_RIGHT:
+        return "FRONT_AND_FRONT_RIGHT";
+    case ENEMY_POS_FRONT_ALL:
+        return "FRONT_ALL";
+    case ENEMY_POS_IMPOSSIBLE:
+        return "IMPOSSIBLE";
+    }
+    return "";
+}
+
+const char *enemy_range_to_string(enemy_range_e range)
+{
+    switch (range) {
+    case ENEMY_RANGE_NONE:
+        return "NONE";
+    case ENEMY_RANGE_CLOSE:
+        return "CLOSE";
+    case ENEMY_RANGE_MID:
+        return "MID";
+    case ENEMY_RANGE_FAR:
+        return "FAR";
+    }
+    return "";
+}
+
 #endif
